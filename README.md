@@ -11,23 +11,27 @@ In this project, we are going to creating a honeypot by deploying a Virtual Mach
 
 <h2>Environments Used </h2>
 
-- <b>Microsoft Azure</b> (22H2)
+- <b>Microsoft Azure</b> 
 
 <h2>Walk-through:</h2>
 We need to first create a free microsoft azure account with which you get your first $200(credits) for deploying virtual instance for free. You can follow the steps provided to create your first free Azure account by clicking on the link provided below.
 
 #### [Azure Portal](https://azure.microsoft.com/en-us/free/)
 
-Once you have successfully signed up your Azure account, you should see the home page which looks like this:
+Once you have successfully signed up your Azure account, on the home page of Azure portal click on "Virtual Machines" and after that click on "Create" to create your first virtual instance:
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/FwFeKzM.png" height="80%" width="80%" alt="Windows Azure Home"/>
+<img src="https://imgur.com/3LkzLmc.png" height="80%" width="80%" alt="Windows Azure Home"/>
 <br />
 
-After successfully launching the Windows image in the Virtual image, inorder to make a vulnerability assessment we need to make the system more vulnerable. We can make our system vulnerable by turning off some important system settings like system updates, windows firewall and uninstalling any important updates etc.
+<br/>
+<img src="https://imgur.com/kntkBUY.png" height="80%" width="80%" alt="Windows Azure Home"/>
+<br />
 
-Inorder to turn off the settings which we have mentioned we need to navigate to the settings in the Windows search bar and follow as guided:
+Now we have to configure the virtual machine. Create a new resource group and name it something easy to remember. Choose the virtual image as Debian and remember that the region you choose will affect the cost of the machine you are deploying.
+
+
 
 
 
