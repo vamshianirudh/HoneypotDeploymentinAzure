@@ -42,7 +42,7 @@ For VM size, choose the Standard_D4s_v3 as other sizes within the free credit ra
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/AJyo1bb.png" height="80%" width="80%" alt="Windows Search"/>
+<img src="https://imgur.com/AJyo1bb.png" height="80%" width="80%" alt=""/>
 <br />
 
 To authenticate with your virtual machine, we can either choose password or SSH public key. We will be using password for our case. Make sure you save the password as we will be using it in the future.
@@ -51,74 +51,83 @@ In the inbound port section, make sure that the SSH is selected as we will be us
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/xzib8rB.png" height="80%" width="80%" alt="Windows Updates and Security"/>
+<img src="https://imgur.com/xzib8rB.png" height="80%" width="80%" alt=""/>
 <br />
 
 We will need to create at least 128 gigabyte disks, to do so, you will to have select "Create and attack a new disk" > "Change size" and select the 128GB disk option.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/4hnohY2.png" height="80%" width="80%" alt="Advanced options"/>
+<img src="https://imgur.com/4hnohY2.png" height="80%" width="80%" alt=""/>
 <br />
 
 <br/>
-<img src="https://imgur.com/dP3SZbZ.png" height="80%" width="80%" alt="Pause Updates"/>
+<img src="https://imgur.com/SfaOwJ1.png" height="80%" width="80%" alt=""/>
 <br />
 
-You can extend the pause updates by choosing the longest date possible and also make sure to turn off the update options which are set to on by default.
+Now we can move to the networking section. Click on "Next: Networking >" You will notice that a new virtual network subnet and public address has been created. No need to make any changes in networking section. Click on "Next: Management >". Here we have a very important functionality, which is to enable auto shutdown. This option will automatically daily stop your VM to save some cost. Since will be working on this virtual instance only for a short while, we will be not selecting this option.
+
+<h3>Note</h3>
+It's also important to decide how long you want to keep your VM. As you will be charged for stopped VM because you have a public IP address associated with it. When we are done working on this project and don't have free credits, make sure to delete all the resources to avoid any extra charges.
+
+After making all the necessary changes, click on "Review + create" option at the bottom and click on "Create" to confirm and create your Azure virtual machine. The final step we need to do is to download the private key. This private key will be required later to connect to the VM and configure the honeypot.
+
+<h3>Installation and Configuration of HoneyPot</h3>
+
+We will have to open a few ports, but to make it even more simple, we will be opening all ports which allows all the incoming and outgoing connection to these ports. Follow these steps to configure the ports:
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/IAIRcwS.png" height="80%" width="80%" alt="Pause Updates"/>
+<img src="https://imgur.com/FaZprKC.png" height="80%" width="80%" alt=""/>
 <br />
 
-Now we have to also make sure that the pre-installed updates are uninstalled so that security patches are removed the system and to make sure the Nessus scanner works more effectively.
-
+Go to "Networking" section and then to open ports, you simply add an inbound rule by clicking the "Add inbound rule" option. Since we are opening connection to all ports, we will specify the whole range from 0 - 65,535 ports. Set the action to allow to allow connections to these port range and then click on add. 
+ 
 <p align="center">
 <br/>
-<img src="https://imgur.com/OGgDV7i.png" height="80%" width="80%" alt="View Update History"/>
+<img src="https://imgur.com/TL1OET1.png" height="80%" width="80%" alt=""/>
 <br />
 
 <br/>
-<img src="https://imgur.com/9OtyA8J.png" height="80%" width="80%" alt="Uninstall updates"/>
+<img src="https://imgur.com/Egmffos.png" height="80%" width="80%" alt=""/>
 <br />
 
 Some updates cannot be uninstalled. To make sure that we can uninstall the updates, select the individual update and see whether you can find the uninstall option at the top. If you cannot find the uninstall option after choosing the update, it means that the particular update cannot be uninstalled.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/qYyNQ5z.png" height="80%" width="80%" alt="Uninstalling updates"/>
+<img src="https://imgur.com/qYyNQ5z.png" height="80%" width="80%" alt=""/>
 <br />
 
 Now we need to disable the Windows Defender Firewall.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/eRnU5E7.png" height="80%" width="80%" alt="Windows Defender Firewall"/>
+<img src="https://imgur.com/eRnU5E7.png" height="80%" width="80%" alt=""/>
 <br />
 
 <br/>
-<img src="https://imgur.com/dVU5Dc7.png" height="80%" width="80%" alt="Windows Defender Firewall"/>
+<img src="https://imgur.com/dVU5Dc7.png" height="80%" width="80%" alt=""/>
 <br />
 
 <br/>
-<img src="https://imgur.com/Jn82and.png" height="80%" width="80%" alt="Windows Defender Firewall"/>
+<img src="https://imgur.com/Jn82and.png" height="80%" width="80%" alt=""/>
 
 Make sure you set all the firewall profiles off. 
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/ZjUQyKp.png" height="80%" width="80%" alt="Windows Defender Firewall"/>
+<img src="https://imgur.com/ZjUQyKp.png" height="80%" width="80%" alt=""/>
 <br />
 
 Finally we need to make sure that the network the virtual machine is on the same network as the Nessus machine that we are about to create. Configure the following settings on your virtual machine and change your adapter setting to "Host-only Adapter" (as it is only option that's working for me):
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/a1pi2S9.png" height="80%" width="80%" alt="Network Adapter Settings"/>
+<img src="https://imgur.com/a1pi2S9.png" height="80%" width="80%" alt=""/>
 <br />
  <br/>
-<img src="https://imgur.com/HlfI4u6.png" height="80%" width="80%" alt="Network Adapter Settings"/>
+<img src="https://imgur.com/HlfI4u6.png" height="80%" width="80%" alt=""/>
 <br />
 </p>
 
