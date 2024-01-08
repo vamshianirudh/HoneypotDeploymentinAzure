@@ -29,26 +29,40 @@ Once you have successfully signed up your Azure account, on the home page of Azu
 <img src="https://imgur.com/kntkBUY.png" height="80%" width="80%" alt="Windows Azure Home"/>
 <br />
 
-Now we have to configure the virtual machine. Create a new resource group and name it something easy to remember. Choose the virtual image as Debian and remember that the region you choose will affect the cost of the machine you are deploying.
-
-
-
-
+Now we have to configure the virtual machine. Create a new resource group and name it something easy to remember. Choose the operating system as Debian since the honeypot requires it and remember that the region you choose will affect the cost of the machine you are deploying.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/CFhG8Qf.png" height="80%" width="80%" alt="Windows Search"/>
+<img src="https://imgur.com/mRtqNqt.png" height="80%" width="80%" alt="Windows Azure Home"/>
 <br />
 
-<br/>
-<img src="https://imgur.com/BrtY7bW.png" height="80%" width="80%" alt="Windows Updates and Security"/>
-<br />
+There is an option called "Run with Azure Spot Discount" which you can choose. With this you can save on overall virtual instance cost but remember that with this option selected, Azure at any point can delete your machine. Since we don't wanna be interrupted with our installation process, we will keep this option disabled.
 
-Our first objective is to pause the automatic updates so that the system doesn't receive any system and security updates. We can do that by extending the date of pause as long as possible, which effectively disables the updates.
+For VM size, choose the Standard_D4s_v3 as other sizes within the free credit range tend to be slow.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/8ufVqtd.png" height="80%" width="80%" alt="Advanced options"/>
+<img src="https://imgur.com/AJyo1bb.png" height="80%" width="80%" alt="Windows Search"/>
+<br />
+
+To authenticate with your virtual machine, we can either choose password or SSH public key. We will be using password for our case. Make sure you save the password as we will be using it in the future.
+
+In the inbound port section, make sure that the SSH is selected as we will be using it later to connect to our virtual machine. Now click on "Next:Disks >" to continue creating the disk size.
+
+<p align="center">
+<br/>
+<img src="https://imgur.com/xzib8rB.png" height="80%" width="80%" alt="Windows Updates and Security"/>
+<br />
+
+We will need to create at least 128 gigabyte disks, to do so, you will to have select "Create and attack a new disk" > "Change size" and select the 128GB disk option.
+
+<p align="center">
+<br/>
+<img src="https://imgur.com/4hnohY2.png" height="80%" width="80%" alt="Advanced options"/>
+<br />
+
+<br/>
+<img src="https://imgur.com/dP3SZbZ.png" height="80%" width="80%" alt="Pause Updates"/>
 <br />
 
 You can extend the pause updates by choosing the longest date possible and also make sure to turn off the update options which are set to on by default.
