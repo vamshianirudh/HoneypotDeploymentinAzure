@@ -185,6 +185,15 @@ With all the features provided by T-Pot you can do many more actions to better u
 <img src="https://imgur.com/UgxeBnL.png" height="80%" width="80%" alt=""/>
 <br />
 
+<h3>Note:</h3>
+One more thing before we end the project, we need to delete the resource group where we have deployed our VM and the honeypot. That way we will avoid any charges from this project in the future. This step is pretty straight forward. Just select the resource group and select "Delete resource group" option to delete all the resources that are assigned to this VM.
+
+<p align="center">
+<br/>
+<img src="https://imgur.com/xu7v00P.png" height="80%" width="80%" alt=""/>
+<br />
+
+
 And this finally concludes the project on creating a honeypot on Microsoft Azure and monitoring the honeypot using T-Pot.
 
 <!--
