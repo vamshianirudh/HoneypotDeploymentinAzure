@@ -7,7 +7,8 @@ In this project, we are going to creating a honeypot by deploying a Virtual Mach
 
 <h2>Languages and Utilities Used</h2>
 
-- <b></b> 
+- <b>PuTTY</b> 
+- <b>T-Pot</b>
 
 <h2>Environments Used </h2>
 
@@ -92,216 +93,100 @@ Go to "Networking" section and then to open ports, you simply add an inbound rul
 <img src="https://imgur.com/Egmffos.png" height="80%" width="80%" alt=""/>
 <br />
 
-Some updates cannot be uninstalled. To make sure that we can uninstall the updates, select the individual update and see whether you can find the uninstall option at the top. If you cannot find the uninstall option after choosing the update, it means that the particular update cannot be uninstalled.
+<h3>Downloading and Installing PuTTY</h3>
+
+Now all that's left to do is to connect to our VM, and for for that we will use PuTTy. PuTTY is an SSH and telnet client, developed originally by Simon Tatham for the Windows platform. You can download PuTTY from it's official website and follow the basic installation wizard to complete the installation. Once you are done installing, you should see something like this. 
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/qYyNQ5z.png" height="80%" width="80%" alt=""/>
+<img src="https://imgur.com/OU8yuA3.png" height="80%" width="80%" alt=""/>
 <br />
 
-Now we need to disable the Windows Defender Firewall.
+To use PuTTY to connect to our VM, we need to provide the IP address of the VM, which you can find by clicking on the "Overview" section.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/eRnU5E7.png" height="80%" width="80%" alt=""/>
+<img src="https://imgur.com/FxeqXqc.png" height="80%" width="80%" alt=""/>
 <br />
 
-<br/>
-<img src="https://imgur.com/dVU5Dc7.png" height="80%" width="80%" alt=""/>
-<br />
-
-<br/>
-<img src="https://imgur.com/Jn82and.png" height="80%" width="80%" alt=""/>
-
-Make sure you set all the firewall profiles off. 
+Once you have the IP address of your VM, enter it in the PuTTY and click on "Open" to open a connection to our VM. Click on "Accept" when you see a prompt. And once the terminal is loaded, enter the username and password you had set up when you first created your VM.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/ZjUQyKp.png" height="80%" width="80%" alt=""/>
+<img src="https://imgur.com/EOIoBkQ.png" height="80%" width="80%" alt=""/>
 <br />
 
-Finally we need to make sure that the network the virtual machine is on the same network as the Nessus machine that we are about to create. Configure the following settings on your virtual machine and change your adapter setting to "Host-only Adapter" (as it is only option that's working for me):
+We will be downloading and installing some updates. For that, we need to enter "sudo apt install" and "sudo apt upgrade -y" into the console of PuTTY.
+
+Now, we need to download the Honeypot into our VM, for that we need install git into our VM. We will be using a Github repository to download the Honeypot and link to the repository is provided down below. 
+#### [HoneyPot Repository](https://github.com/telekom-security/tpotce)
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/a1pi2S9.png" height="80%" width="80%" alt=""/>
-<br />
- <br/>
-<img src="https://imgur.com/HlfI4u6.png" height="80%" width="80%" alt=""/>
-<br />
-</p>
+<img src="https://imgur.com/bY1iTqs.png" height="80%" width="80%" alt=""/>
 
-<h3>Installing Nessus</h3>
+To clone the repository, copy the command and paste it in the PuTTY terminal.
 
-Installing Nessus is pretty intuitive as it can get. By clicking on the link provided, you will be redirected to the Nessus Essentials Registration page where you must complete the registration to download the Nessus. After downloading the Nessus and completing the setup wizard, activation code will be sent to your registered email. Use the activation code and let the rest of plugins for Nessus download. 
+```javascript
+git clone https://github.com/telekom-security/tpotce
+```
 
-Note: We will be downloading the Nessus on your personal machine to run vulnerability scans, not your virtual machine which you have setup.
+To install the Honeypot we just cloned, we need to be in the right installer directory and enter the below commands to complete the installation.
 
-#### [Nessus Essentials Registration](https://www.tenable.com/products/nessus/nessus-essentials?action=register)
-
-<h3>Configuring Nessus for Scanning</h3>
-
-Once the setup is done, we need to configure the Nessus to perform on target ip or network. Choose the "Create New Scan" option from the My Scans and add the Virtual Machine IP to run the scan. 
-
-Nessus does provide a wide range of scan options even with the free edition so feel free to try around different scans. But for the current project, we are focusing on the "Basic Network Scan" scan to be run on the lab environment.
+```javascript
+cd tpotce/iso/installer/
+```
+```javascript
+sudo ./install.sh --type=user
+```
+This should start the installation process. Once you get to the prompt asking to continue, type "y" and press enter. You will be greeted with a blue screen asking to choose option to choose the T-Pot edition. Choose the "Standard" and we are good to go.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/jteO85q.png" height="80%" width="80%" alt="Nessus Configuration"/>
+<img src="https://imgur.com/m70bWcq.png" height="80%" width="80%" alt=""/>
 <br />
 
- <br/>
-<img src="https://imgur.com/QLNOXta.png" height="80%" width="80%" alt="Nessus Configuration"/>
-<br />
+Once you have choosen the edition, the T-Pot will ask you to enter username and password. These credentials will be later used to log into T-Pot console and once you have provided the credentials, the rest of the installation will be done.
 
-The target IP address should be provided to Nessus in order to perform a vulnerability scan.
+<h3>T-Pot Web Interface</h3>
+
+Once the installation is done, the remote connection will be automatically terminated. We can close the PuTTY terminal and now to access the T-Pot web interface to track the cybersecurity threats on the Azure VM which we deployed, we need the VM's IP address and the T-Pot service runs on the port 64297. So to access web interface, copy the link below and paste it in your browser.
+
+```javascript
+https://[youripaddress]:64297
+```
+You will be prompted to enter the username and password. The credentials are the ones which we entered when first installed T-Pot clone from Github. Once you have entered the credentials, you will be greeted with the T-Pot web interface, where you can monitor the attacks that are performed on your VM. All the options available on the web interface have been detailed explained in the Git repository of T-Pot. So make sure to check it out.
+
+<h3>Discovering Cyberthreats in Realtime with T-Pot</h3>
+
+Once we have successfully logged into the T-Pot interface, let it run in the background for couple of hours(preferrably 1-2 days) so that potential attackers on the internet can access the honeypot and the T-Pot will gather the information for us to analyze.
+
+<h4>Attack Map</h4>
+
+Attack Map displays a live attack map that shows the geographic location of the attackers and the types of attacks that are being attempted on your honeypot.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/dqDBDGv.png" height="80%" width="80%" alt="Nessus Configuration"/>
+<img src="https://imgur.com/pd7dTLC.png" height="80%" width="80%" alt=""/>
 <br />
 
-You can also find two other options right next the Settings which being Credentials and Plugins
-
-Credentials gives you an option to perform a vulnerable target by providing it's login credentials. It basically gives you a more comprehensive assessment of the target and provides more vulnerabilities which other wise cannot be found.
-
-Plugins provide additional functionality based the type of scan you wanna perform. For example, you can choose Cisco Database plugin family to add more functionality to your scans if you are performing it on a Cisco database etc.
-
-After saving the target IP address, we can now run a vulnerability scan on the target device.
-</p>
-
-<h3>Nessus Initial Scan</h3>
-
-Now that we have successfully configured our scan, we can now start our scan by clicking on the play button.
-<p align="center">
 <br/>
-<img src="https://imgur.com/iAOIkKg.png" height="80%" width="80%" alt="Nessus Initial Scan"/>
+<img src="https://imgur.com/wfSwctN.png" height="80%" width="80%" alt=""/>
 <br />
 
-After a successful scan, we should see something like this.
+With all the features provided by T-Pot you can do many more actions to better understand on how and which attacks are used by the attackers. For example, this is one of the dashboard you can use to visualize the attacks using Kibana.
 
 <p align="center">
 <br/>
-<img src="https://imgur.com/CVN8IfU.png" height="80%" width="80%" alt="Nessus Initial Scan"/>
-<br />
-
-Nessus provides you vulnerabilities based on their severity and if we notice carefully, we found have a medium severity vulnerability. Let's take a deeper dive into the vulnerability by clicking on it.
-
-Nessus provides you a brief description about the issue and also solution for the vulnerability that is been discovered. It also shows the availability of exploits for the discovered exploit.
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/hhRqTcE.png" height="80%" width="80%" alt="Nessus Initial Scan"/>
-<br />
-
-<h3>Configuration of Credentials for Credential Scan</h3>
-
-As discussed earlier, with credentials Nessus can perform a more comprehensive scan on the target network. Follow the pictures to configure the credentials for credential scan:
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/tNaOlau.png" height="80%" width="80%" alt="Configuring Credential Scan"/>
-<br />
-
-Since we are performing credential scan on a Windows VM, choose the windows machine and provide the required credentials of the admin account. There are multiple authentication methods you can use when using the credential scan. For now, choose the "Password" option and save once you have entered the credentials.
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/u3Dsvqm.png" height="80%" width="80%" alt="Configuring Credential Scan"/>
-<br />
-
-However, you may receive an notification when you try to run a scan saying "The account used does not have necessary privileges". This is because in windows a non-default administrator is not added to the local group administrators and does not have the appropriate rights to access the system rights. For the credential scan to work, we need to configure some additional settings in the Windows VM as follows:
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/ApPHx0T.png" height="80%" width="80%" alt="Configuring Credential Scan"/>
-<br />
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/ShKHI03.png" height="80%" width="80%" alt="Configuring Credential Scan"/>
-<br />
-
-We need to change the startup type to "Automatic", which will allow you to remotely connect to registry database and perform different operations.
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/duYRj8x.png" height="80%" width="80%" alt="Configuring Credential Scan"/>
+<img src="https://imgur.com/jeY0r5U.png" height="80%" width="80%" alt=""/>
 <br />
 
 <br/>
-<img src="https://imgur.com/Xhx1Zey.png" height="80%" width="80%" alt="Configuring Credential Scan"/>
+<img src="https://imgur.com/UgxeBnL.png" height="80%" width="80%" alt=""/>
 <br />
 
-<br/>
-<img src="https://imgur.com/JilpD5c.png" height="80%" width="80%" alt="Configuring Credential Scan"/>
-<br />
+And this finally concludes the project on creating a honeypot on Microsoft Azure and monitoring the honeypot using T-Pot.
 
-Go to Registry Editor and follow this path: 
-
-HKEY_LOCAL_MACHINE > SOFTWARE > Microsoft > Windows > CurrentVersion > Policies > System
-
-Right click on the empty space inside the System folder and choose "DWORD (32-bit world) Value" and name it "LocalAccountTokenFilterPolicy". Make sure you rename exactly the same because any variations will cause the Windows to ignore the registry value.
-
-Now double click on the newly created DWORD value and to make sure it's turned on, change the value data from 0 to 1.
-
-The "LocalAccountTokenFilterPolicy" registry value which allows non-administrative accounts to access administrative resources on the system when using remote procedure call.
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/S0l3kdH.png" height="80%" width="80%" alt="Configuring Credential Scan"/>
-<br />
-
-Once you have made all the necessary changes, restart the device to make sure the changes have been applied. With this we can now perform a credential scan on the target.
-
-<h3>Performing Credential Scan</h3>
-
-Just like the Basic Network Scan, click on the play button and wait for some time to Nessus to actually complete the scan. 
-
-As we can see, there are mutiple vulnerabilities are discovered and a critical vulnerbility has beend discovered as well. This shows that with credential scan will provide you a more in depth scan into our target.
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/kZLqAt7.png" height="80%" width="80%" alt="Performing Credential Scan"/>
-<br />
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/PWgBxV7.png" height="80%" width="80%" alt="Performing Credential Scan"/>
-<br />
-
-<h3>Introducing Vulnerable Software</h3>
-
-Inorder to download any vulnerable software into our VM, we need to have internet access. For we need to change adapter settings to "Bridged Adapter" and change back to "Host-only" once you are done with downloading the vulnerable software.
-
-I have decided to download the older version of 7zip for our demonstration.Let's also introduce the famous "Log4j" vulnerability by installing a 2019 Minecraft server into our system. Once the outdated software has been downloaded and installed, perform another round of scan and we can see that new vulnerabilities are introduced into our machine.
-
-As we can see that Nessus has detected the vulnerabilities associated with the older version of software we have installed into the target system.
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/hPFBtaB.png" height="80%" width="80%" alt="Vulnerable Software Scan"/>
-<br />
-
-There's an excellent feature provided by Nessus, where you can download a report of all the discovered vulnerabilties. This report can be used as an comprehensive document about the discovered vulnerabilities.
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/oCStvCu.png" height="80%" width="80%" alt="Vulnerable Software Scan"/>
-<br />
-
-<p align="center">
-<br/>
-<img src="https://imgur.com/9yhm2HY.png" height="80%" width="80%" alt="Vulnerable Software Scan"/>
-<br />
-
-<h3>Remediation of Discovered Vulnerabilities</h3>
-
-Now that we have discovered all the vulnerbilities, we need to follow the remediations provided by the Nessus. The remediations can viewed when you click on the particular vulnerability you wanna address. The basic security configurations like turning on the windows updates, deleting or updating any vulnerable software etc., should do the trick.
-</p>
-
-<h3>Conclusion</h3>
-With a final scan run on the target, we can confirm that all the discovered vulnerabilities have been patched up and there are no vulnerabilities other than "info" based ones. That concludes the end of this project.
 <!--
  ```diff
 - text in red
